@@ -1,0 +1,260 @@
+<h1>BASES</h1>
+<h4>Hola Mundo</h4>
+<hr/>
+<!--interpolación-->
+<h1>INTERPOLACION</h1>
+<h2>{{"Hola  ".repeat(5)}}</h2>
+
+<p><strong>3 + 3 = {{3+3}}</strong></p>
+
+<h2>el titulo del proyecto es : <span style="color: blue;"> {{title}} </span></h2>
+
+<hr/>
+<h1>POPERTY BINDING</h1>
+<span>MI TITULO</span>
+<input type="text" [value]="title"/>
+<button [disabled]="deshabilitado">Mi Boton</button>
+<progress max="100" [value]="porcentaje"></progress>
+
+<textarea name="area" id="miArea" cols="3" rows="3">{{objeto.nombre}}</textarea>
+<br>
+<hr/>
+<h1>EVENTOS</h1>
+<label for="">nombre: {{objeto.nombre}}</label>
+<br>
+<label for="">edad: {{objeto.edad}}</label>
+
+
+<!--capturar eventos-->
+<br>
+<button (click)="ejecutarClick()">EVENTO CLICK</button>
+<button [disabled]="deshabilitar">MUESTRA</button>
+<br><br>
+<label for="">EDAD ACTUAL: {{objeto.edad}}</label>
+<button (click)="incrementarEdad()">INCREMENTAR EDAD</button>
+
+<br>
+<hr/>
+<h1>MAS EVENTOS (PASANDO EVENTO)</h1>
+<br>
+
+<div class="box" (scroll)="scrollear($event)">
+    <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae 
+    nemo laudantium libero tempore voluptatibus saepe odit soluta, ex eveniet quia ipsum,
+    quis officiis nesciunt praesentium! Aliquam minus ex exercitationem molestias!
+    </p>
+</div>
+
+<br>
+<hr/>
+<h1>DATA BIDING</h1>
+<br>
+<br>
+<input type="text" (keyup)="levantarTecla($event)" />
+
+ 
+<br>
+<hr/>
+<h1>NG MODEL (PROPERTY BINDING Y DATA BIDING) Y VALIDACION</h1>
+<br>
+<br>
+<input type="text" required="" #validacion="ngModel" [(ngModel)]="objeto.nombre" /> 
+<p>VALIDACION : {{validacion.valid}}</p>
+
+<br>
+<br>
+<input type="number" max="150" min="18" required="" #validacion_edad="ngModel" [(ngModel)]="objeto.edad" /> 
+<p>VALIDACION : {{validacion_edad.valid}}</p>
+
+
+<br>
+<hr/>
+<h1>*ngIf</h1>
+<br>
+<br>
+<label> ADIVINA EL NOMBRE : EMPIEZA CON J- TERMINA EN N Y TIENE 4 LETRAS</label>
+<input type="text" required #validarName="ngModel" [(ngModel)]="objeto.nombre">
+<p>VALIDACION : {{validarName.valid}}</p>
+<br>
+<p *ngIf="objeto.nombre=='Jose'">SOY JOSE</p>
+<p *ngIf="objeto.nombre.length>0&&objeto.nombre.toLowerCase()=='juan'.toLowerCase(); else miElse">CORRECTO ! SOY JUAN</p>
+<ng-template #miElse>
+    <p>NOMBRE INCORRECTO</p>
+</ng-template>
+
+<br>
+<hr/>
+<h1>*ngFor</h1>
+<br>
+<br>
+
+<label>STRING</label>
+<ul>
+    <li *ngFor="let valor of miArregloString ; index as indice">{{indice}} {{valor}}</li>
+</ul>
+
+
+<label>NUMBER</label>
+<ul>
+    <li *ngFor="let valor of miArregloNumber ; index as indice">{{indice}} {{valor}}</li>
+</ul>
+
+
+<label>BOOLEANOS</label>
+<ul>
+    <li *ngFor="let valor of miArregloBoolean ; index as indice">{{indice}} {{valor}}</li>
+</ul>
+
+
+
+
+<label>OBJETOS</label>
+<ul>
+    <li *ngFor="let valor of miArregloObjeto ; index as indice">{{indice}} {{valor}}</li>
+</ul>
+
+
+<label>MIXTO</label>
+<ul>
+    <li *ngFor="let valor of miArregloMixto ; index as indice">{{indice}} {{valor}}</li>
+</ul>
+
+
+<br>
+<hr/>
+<h3>*ngFor LLenar arreglo</h3>
+<br>
+<br>
+
+<input type="text" required [(ngModel)]="nombre">
+<button (click)="addElemento()" *ngIf="nombre.length>0">AGREGAR</button>
+
+<ul>
+    <br>
+    <li *ngIf="arreglo_vacio.length<=0">NO HAY NOMNBRES EN LA LISTA</li>
+    <li *ngFor="let valor of arreglo_vacio ; index as indice">
+        {{indice}} {{valor}} 
+        <button (click)="delElemento(indice)" >ELIMINAR</button>
+    </li>
+</ul>
+
+<br>
+<hr/>
+<h3>*ngFor PARA OBJETOS</h3>
+
+<!-- Para esto se usa interfaces -->
+<div *ngFor="let llave of miArregloPersona ; index as indice">
+    <br>
+    <p> {{llave.nombre}} </p>
+    <p> {{llave.edad}} </p>
+    <img [src]="llave.imagen" width="250">
+</div>
+
+<br>
+<hr/>
+<h1>*ngSwitch</h1>
+
+<div [ngSwitch]="objeto.nombre.toLowerCase()">
+    <p *ngSwitchCase="'juan'">SOY JUAN</p>
+    <p *ngSwitchCase="'jose'">SOY JOSE</p>
+    <p *ngSwitchCase="'jorge'">SOY JORGE</p>
+    <p *ngSwitchCase="'julian'">SOY JULIAN</p>
+    <p *ngSwitchDefault>NO SOY NADIE</p>
+</div>
+
+
+<br>
+<hr/>
+<h1>ESTILOS</h1>
+
+<div class="person-grid">
+    <div *ngFor="let llave of miArregloPersona ; index as indice">
+        <p> {{llave.nombre}} </p>
+        <p> {{llave.edad}} </p>
+        <img [src]="llave.imagen" width="250">
+    </div>
+</div>
+
+<br>
+<hr/>
+<h2>CLASES DINAMICAS</h2>
+<input type="text" required #input="ngModel" [(ngModel)]="objeto.nombre" />
+<P class="error" [class.correcto]="input.valid" *ngIf="input.invalid">El campo es requerido</P>
+<P class="error" [class.correcto]="input.valid" *ngIf="input.valid">El campo es correcto</P>
+
+<br>
+<hr/>
+<h2>CLASES DINAMICAS #2</h2>
+<label> Nombre :</label>
+<input type="text" required #input2="ngModel" [(ngModel)]="objeto.nombre" />
+<!--<P [style]="'color:red;'">El campo es requerido</P>-->
+<P [style.font-style]="input2.valid ? 'normal' : 'italic'" [style.color]="input2.valid ? 'green' : 'red'" >{{input2.valid ? 'Campo Correcto' : 'Campo Requerido'}}</P>
+
+<br>
+<hr/>
+<h2>CLASES DINAMICAS #3</h2>
+<label> Tamaño en % :</label>
+<input type="number" required #input3="ngModel" [(ngModel)]="img_width" />
+<br>
+<div class="miImagen">
+    <img [style.width]="img_width +'%'" [src]="img_src">
+</div>
+
+<br>
+<hr/>
+<h1>ngClass</h1>
+<input type="text" required #miinput="ngModel" [(ngModel)]="objeto.edad">
+<hr class="miHr"
+    [ngClass]="{
+        'line-error': miinput.invalid,
+        'line-success': miinput.valid
+    }"
+/>
+
+<br>
+<hr/>
+<h1>ngStyles</h1>
+
+<label >BACKGROUND</label>
+<input type="color" [(ngModel)]="parrafo_background" />
+<br>
+<label >FONT-COLOR</label>
+<input type="color" [(ngModel)]="parrafo_color" />
+<br>
+<label >FONT-SIZE</label>
+<input type="number" [(ngModel)]="parrafo_size" />
+
+<p [ngStyle]="{
+    'font-size': parrafo_size+'px',
+    'color': parrafo_color,
+    'background': parrafo_background
+    }"
+>ESTO ES UNA PRUEBA</p>
+
+
+
+<br>
+<hr/>
+<h1>PROYECTO FINAL</h1>
+<div class="formulario">
+    <h1>REGISTRATE!</h1>
+    <form (ngSubmit)="registrar()" #myForm="ngForm">
+        <label for="nombre" >Nombre :</label>
+        <input type="text" name="nombre" [ngStyle]="{'background-color':nombreForm.invalid?'pink':'lightgreen'}" #nombreForm="ngModel" required [(ngModel)]="usuario.nombre">
+        <P [style.font-style]="nombreForm.valid ? 'normal' : 'italic'" [style.color]="nombreForm.valid ? 'green' : 'red'" >{{nombreForm.valid ? 'Campo Correcto' : 'Campo Requerido'}}</P>
+        
+        <label for="correo">Correo :</label>
+        <input type="email" name="correo" [ngStyle]="{'background-color':correoForm.invalid?'pink':'lightgreen'}" #correoForm="ngModel"  required [(ngModel)]="usuario.correo">
+        <P [style.font-style]="correoForm.valid ? 'normal' : 'italic'" [style.color]="correoForm.valid ? 'green' : 'red'" >{{correoForm.valid ? 'Campo Correcto' : 'Campo Requerido'}}</P>
+
+        <label for="contrasena">contraseña :</label>
+        <input type="text" name="contrasena" [ngStyle]="{'background-color':contrasenaForm.invalid?'pink':'lightgreen'}" #contrasenaForm="ngModel"  required [(ngModel)]="usuario.contrasena">
+        <P [style.font-style]="contrasenaForm.valid ? 'normal' : 'italic'" [style.color]="contrasenaForm.valid ? 'green' : 'red'" >{{contrasenaForm.valid ? 'Campo Correcto' : 'Campo Requerido'}}</P>        
+
+        <input type="reset" value="Limpiar">
+        <input [disabled]="myForm.invalid" type="submit" value="Registrar">
+    </form>
+</div>
+
+<p>{{[1,2].reverse()}}</p>
